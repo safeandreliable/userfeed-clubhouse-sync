@@ -7,13 +7,16 @@ module.exports = {
   },
   // DB setup
   db: {
+    // Database name
     name: "userfeedClubhouseSync",
+    // Collection name
     collection: "stories",
     url: process.env.databaseUrl
   },
-  // Clubhouse api token
   clubhouse: {
+    // Clubhouse api token
     apiToken: process.env.clubhouseApiToken,
+    // Clubhouse columns to their ID's in the backend
     columnToIds: {
       grooming: 500000008,
       ready_for_development: 500000007,
@@ -23,6 +26,7 @@ module.exports = {
       ready_for_deploy: 500000009,
       deployed: 500000011
     },
+    // Mapping Clubhouse statuses to Userfeed
     statusMapping: {
       grooming: "planned",
       ready_for_development: "planned",
@@ -34,7 +38,9 @@ module.exports = {
     }
   },
   userfeed: {
+    // Statuses of stories that will be pushed to clubhouse
     statusesToPush: ["planned", "in_progress"],
+    // General www request headers that must  be included
     apiHeaders: {
       "sec-fetch-mode": "cors",
       cookie: process.env.userfeedCookie,
@@ -48,6 +54,7 @@ module.exports = {
       "sec-fetch-site": "same-origin"
     },
     urls: {
+      // Url to request the stories feed.
       stories:
         "https://www.userfeed.io/safeandreliable/feedback.json?draw=1&columns%5B0%5D%5Bdata%5D=like_button&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=summary&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=comment_count&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=created_at&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=status&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=feed&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=labels&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=submitted_by&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=3&order%5B0%5D%5Bdir%5D=desc&start=0&length=100&search%5Bvalue%5D=&search%5Bregex%5D=false&label_match_type=any&_=1568326106403"
     }
