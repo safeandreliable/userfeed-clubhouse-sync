@@ -9,6 +9,6 @@ clubhouseApiToken - Api token that clubhouse provides
 userfeedCookie - This is the cookie that can be seen with request to userfeed within the network tab on the dev console.
 ```
 
-To get the app setup and running first run: `npm install` (I may have forgotten a package or too)
+To get the app setup and running first run: `npm install` (I may have forgotten a package or two)
 
 Then just run `node app.js`
