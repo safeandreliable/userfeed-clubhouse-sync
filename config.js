@@ -1,7 +1,7 @@
 module.exports = {
   init: {
     // Port server will run on
-    port: process.env.port,
+    port: process.env.PORT,
     // Poll time to check for updates from userfeed
     pollTime: 1000 * 60
   },
@@ -11,11 +11,11 @@ module.exports = {
     name: "userfeedClubhouseSync",
     // Collection name
     collection: "stories",
-    url: process.env.databaseUrl
+    url: process.env.MONGODB_URI
   },
   clubhouse: {
     // Clubhouse api token
-    apiToken: process.env.clubhouseApiToken,
+    apiToken: process.env.CLUBHOUSE_APIUT_TOKEN,
     // Clubhouse columns to their ID's in the backend
     columnToIds: {
       grooming: 500000008,
@@ -43,7 +43,7 @@ module.exports = {
     // General www request headers that must  be included
     apiHeaders: {
       "sec-fetch-mode": "cors",
-      cookie: process.env.userfeedCookie,
+      cookie: process.env.USERFEED_COOKIE,
       "accept-encoding": "gzip, deflate, br",
       "accept-language": "en-US,en;q=0.9",
       "user-agent":
