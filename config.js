@@ -8,7 +8,7 @@ module.exports = {
   // DB setup
   db: {
     // Database name
-    name: "userfeedClubhouseSync",
+    name: process.env.MONGODB_NAME,
     // Collection name
     collection: "stories",
     url: process.env.MONGODB_URI
