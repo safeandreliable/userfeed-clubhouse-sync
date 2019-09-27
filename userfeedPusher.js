@@ -178,7 +178,7 @@ module.exports = class userfeedPusher {
               "-- updating UF story " +
                 story.userfeedId +
                 ": " +
-                newStatus +
+                story.userfeedData.title +
                 " status to: " +
                 newStatus
             );
