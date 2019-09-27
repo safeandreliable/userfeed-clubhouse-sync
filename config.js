@@ -15,7 +15,7 @@ module.exports = {
   },
   clubhouse: {
     // Clubhouse api token
-    apiToken: process.env.CLUBHOUSE_APIUT_TOKEN,
+    apiToken: process.env.CLUBHOUSE_API_TOKEN,
     // Clubhouse columns to their ID's in the backend
     columnToIds: {
       grooming: 500000008,
