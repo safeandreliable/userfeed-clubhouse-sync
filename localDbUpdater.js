@@ -47,7 +47,7 @@ module.exports = class localDbUpdater {
     });
 
     // Insert all existing userfeedStories and make sure they are not pushed to clubhouse
-    return me.collection.insertMany(records, function(err, result) {
+    return me.collection.insertMany(records, (err, result) => {
       console.log("Seeded: " + result.insertedCount + " records inserted");
     });
   }
@@ -60,8 +60,8 @@ module.exports = class localDbUpdater {
   // Finds story record from DB
   findStory(id) {
     const me = this;
-    return new Promise(function(resolve, reject) {
-      me.collection.findOne({ clubhouseId: id }, function(err, story) {
+    return new Promise((resolve, reject) => {
+      me.collection.findOne({ clubhouseId: id }, (err, story) => {
         if (err) throw reject(err);
         resolve(story);
       });
@@ -74,13 +74,13 @@ module.exports = class localDbUpdater {
   // This is setup in the config
   findStories(inClubhouse) {
     const me = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       me.collection
         .find({
           clubhouseId: { $exists: inClubhouse, $ne: 0 },
           "userfeedData.status": { $in: me.ufStatusesToPush }
         })
-        .toArray(function(err, records) {
+        .toArray((err, records) => {
           if (err) throw reject(err);
           resolve(records);
         });
@@ -92,7 +92,7 @@ module.exports = class localDbUpdater {
     const me = this;
 
     // updates or creates story in DB
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       records.forEach(record => {
         me.collection.findOneAndUpdate(
           { userfeedId: record.userfeedId },

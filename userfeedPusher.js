@@ -44,18 +44,18 @@ module.exports = class userfeedPusher {
     let headersCopy = Object.assign({}, this.headers);
     headersCopy["accept"] = "application/json, text/javascript, */*; q=0.01";
 
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       return axios
         .get(me.storiesUrl, { headers: headersCopy })
-        .then(function(response) {
+        .then(response => {
           const jsonBlob = response.data;
           const data = jsonBlob.data;
           return me.parseObjects(data);
         })
-        .catch(function(error) {
+        .catch(error => {
           reject(error);
         })
-        .then(function(data) {
+        .then(data => {
           resolve(data);
         });
     });
@@ -70,7 +70,7 @@ module.exports = class userfeedPusher {
 
     return axios
       .get(redirectUrl, { headers: headersCopy })
-      .then(function(data) {
+      .then(data => {
         let dataToReturn = {};
 
         dataToReturn.trueUrl = data.request.res.responseUrl;
@@ -78,16 +78,14 @@ module.exports = class userfeedPusher {
 
         return dataToReturn;
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
   }
 
   // Finds the form auth token within the html
   findFormAuthenticityToken(story) {
-    return this.getPostHtml(story.userfeedData.redirectUrl).then(function(
-      data
-    ) {
+    return this.getPostHtml(story.userfeedData.redirectUrl).then(data => {
       const $ = cheerio.load(data.html);
       const formToken = $("meta[name='csrf-token']")[0].attribs.content;
 
@@ -103,7 +101,7 @@ module.exports = class userfeedPusher {
 
     const linkedStories = stories.map(story => {
       return new Promise(resolve => {
-        me.findFormAuthenticityToken(story).then(function(data) {
+        me.findFormAuthenticityToken(story).then(data => {
           resolve(me.addClubHouseLink(data[0], data[1]));
         });
       });
@@ -116,7 +114,7 @@ module.exports = class userfeedPusher {
   addClubHouseLink(story, formToken) {
     let me = this;
 
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       let headersCopy = Object.assign({}, me.headers);
       headersCopy["accept"] =
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3";
@@ -151,8 +149,8 @@ module.exports = class userfeedPusher {
   updateStatus(story, newStatus) {
     const me = this;
 
-    return new Promise(function(resolve, reject) {
-      me.findFormAuthenticityToken(story).then(function(data) {
+    return new Promise((resolve, reject) => {
+      me.findFormAuthenticityToken(story).then(data => {
         const updatedStory = data[0];
 
         let headersCopy = Object.assign({}, me.headers);
@@ -173,9 +171,9 @@ module.exports = class userfeedPusher {
         };
 
         axios(payload)
-          .then(function(res) {
+          .then(res => {
             console.log(
-              "-- updating UF story " +
+              "---- updating UF story " +
                 story.userfeedId +
                 ": " +
                 story.userfeedData.title +

@@ -16,6 +16,8 @@ module.exports = {
   clubhouse: {
     // Clubhouse api token
     apiToken: process.env.CLUBHOUSE_API_TOKEN,
+    // Clubhouse webhook secret
+    webhookSecret: process.env.CLUBHOUSE_WEBHOOK_SECRET,
     // Clubhouse columns to their ID's in the backend
     columnToIds: {
       grooming: 500000008,
