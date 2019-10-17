@@ -2,6 +2,7 @@ module.exports = {
   init: {
     // Port server will run on
     port: process.env.PORT,
+    rollBarToken: process.env.ROLLBAR_API_TOKEN,
     // Poll time to check for updates from userfeed
     pollTime: 1000 * 60
   },

@@ -1,7 +1,10 @@
+const Rollbar = require("rollbar");
 const express = require("express");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
 const app = express();
+
+// include and initialize the rollbar library with your access token
 
 if (process.env.NODE_ENV !== "PROD") {
   require("dotenv").config();
@@ -12,6 +15,12 @@ const initConfig = config.init;
 const chConfig = config.clubhouse;
 const ufConfig = config.userfeed;
 const dbConfig = config.db;
+
+var rollbar = new Rollbar({
+  accessToken: initConfig.rollBarToken,
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
 
 chConfig.idToColumns = Object.assign(
   {},
@@ -80,9 +89,11 @@ const validWedhook = (headerSignature, event) => {
   const hexified = code.digest("hex");
   if (hexified === headerSignature) {
     console.log("---- webhook signature verified");
+    Rollbar.info("---- webhook signature verified");
     return true;
   } else {
     console.log("---- unverified webhook. Not processing.");
+    Rollbar.info("---- unverified webhook. Not processing.");
     return false;
   }
 };
@@ -130,6 +141,9 @@ const syncDataFromUserfeedToClubhouse = () => {
       })
       // Push stories to clubhouse
       .then(stories => {
+        Rollbar.info(
+          "-- creating " + stories.length + " stories in clubhouse."
+        );
         console.log("-- creating " + stories.length + " stories in clubhouse.");
         return chp.createStories(stories);
       })
@@ -140,11 +154,18 @@ const syncDataFromUserfeedToClubhouse = () => {
       .then(stories => {
         return ldb.updateAndCreateStoriesLocal(stories);
       })
+      .catch(err => {
+        Rollbar.error(err);
+        console.log(err);
+      })
   );
 };
 
 // Function to run if script has been down for a while to sync up data changes that happened
 const syncDataFromClubhouseToUserfeed = () => {
+  Rollbar.info(
+    "Checking clubhouse for changes to push to userfeed that happened while script wasn't running"
+  );
   console.log(
     "Checking clubhouse for changes to push to userfeed that happened while script wasn't running"
   );
@@ -188,6 +209,7 @@ const processClubHouseChange = event => {
             return ldb.updateAndCreateStoriesLocal([story]);
           })
           .catch(err => {
+            Rollbar.error(err);
             console.log(err);
           });
       } else {
