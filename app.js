@@ -91,7 +91,6 @@ const validWedhook = (headerSignature, event) => {
   const hexified = code.digest("hex");
   if (hexified === headerSignature) {
     console.log("---- webhook signature verified");
-    rollbar.log("---- webhook signature verified");
     return true;
   } else {
     console.log("---- unverified webhook. Not processing.");
@@ -143,9 +142,6 @@ const syncDataFromUserfeedToClubhouse = () => {
       })
       // Push stories to clubhouse
       .then(stories => {
-        rollbar.info(
-          "-- creating " + stories.length + " stories in clubhouse."
-        );
         console.log("-- creating " + stories.length + " stories in clubhouse.");
         return chp.createStories(stories);
       })
@@ -165,9 +161,6 @@ const syncDataFromUserfeedToClubhouse = () => {
 
 // Function to run if script has been down for a while to sync up data changes that happened
 const syncDataFromClubhouseToUserfeed = () => {
-  rollbar.info(
-    "Checking clubhouse for changes to push to userfeed that happened while script wasn't running"
-  );
   console.log(
     "Checking clubhouse for changes to push to userfeed that happened while script wasn't running"
   );
