@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const app = express();
 
 const Env = process.env.NODE_ENV;
+const ForceSeed = process.env.FORCE_SEED;
 
 // include and initialize the rollbar library with your access token
 
@@ -102,7 +103,7 @@ const validWedhook = (headerSignature, event) => {
 const shouldSeed = () => {
   return new Promise((resolve, reject) => {
     ldb.storyCount().then(count => {
-      if (count === 0) {
+      if (ForceSeed || count === 0) {
         console.log("Seeding data to local db since collection is empty");
         seedData().then(() => {
           resolve(true);

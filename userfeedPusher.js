@@ -21,8 +21,12 @@ module.exports = class userfeedPusher {
   // Parses each raw story into a DB format
   parseData(data) {
     const $ = cheerio.load(data.summary);
-    const type = $(".text-muted.text-uppercase.font-size-sm")[0].children[0]
-      .data;
+    const typeContainer = $("span")[0].children;
+    let type = "";
+    if (typeContainer) {
+      type = typeContainer[0].data;
+    }
+
     const processedData = {
       userfeedId: data.DT_RowId,
       userfeedData: {
