@@ -9,6 +9,7 @@ MONGODB_URI - Url to mongo DB
 CLUBHOUSE_API_TOKEN - Api token that clubhouse provides
 CLUBHOUSE_WEBHOOK_SECRET - a secret phrase to verify webhook events are legit * optional *
 USERFEED_COOKIE - This is the cookie that can be seen with request to userfeed within the network tab on the dev console.
+FORCE_SEED - Optional env var to force reseeding of database instead of pushing all new stories to clubhouse. (Useful if the script is down for a while)
 ```
 
 If this is a production server also add `NODE_ENV=PROD` to your environment. Otherwise the app will try to load your env variables from a `.env` file in the repo.
